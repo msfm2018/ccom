@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32126.317
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ep_weather_host", "ep_weather_host\ep_weather_host.vcxproj", "{314A50C1-F0A0-4D0C-89E1-AD8F3951043E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|amd64 = Debug|amd64
+		Debug|arm64 = Debug|arm64
+		Debug|IA-32 = Debug|IA-32
+		Release|amd64 = Release|amd64
+		Release|arm64 = Release|arm64
+		Release|IA-32 = Release|IA-32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{314A50C1-F0A0-4D0C-89E1-AD8F3951043E}.Debug|amd64.ActiveCfg = Debug|x64
+		{314A50C1-F0A0-4D0C-89E1-AD8F3951043E}.Debug|amd64.Build.0 = Debug|x64
+		{314A50C1-F0A0-4D0C-89E1-AD8F3951043E}.Debug|arm64.ActiveCfg = Debug|ARM64
+		{314A50C1-F0A0-4D0C-89E1-AD8F3951043E}.Debug|arm64.Build.0 = Debug|ARM64
+		{314A50C1-F0A0-4D0C-89E1-AD8F3951043E}.Debug|IA-32.ActiveCfg = Debug|Win32
+		{314A50C1-F0A0-4D0C-89E1-AD8F3951043E}.Release|amd64.ActiveCfg = Release|x64
+		{314A50C1-F0A0-4D0C-89E1-AD8F3951043E}.Release|amd64.Build.0 = Release|x64
+		{314A50C1-F0A0-4D0C-89E1-AD8F3951043E}.Release|arm64.ActiveCfg = Release|ARM64
+		{314A50C1-F0A0-4D0C-89E1-AD8F3951043E}.Release|arm64.Build.0 = Release|ARM64
+		{314A50C1-F0A0-4D0C-89E1-AD8F3951043E}.Release|IA-32.ActiveCfg = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {39EBC2F0-6949-46EC-9FC2-776591FEE2DA}
+	EndGlobalSection
+EndGlobal

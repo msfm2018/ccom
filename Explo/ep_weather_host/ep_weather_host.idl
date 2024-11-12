@@ -1,0 +1,19 @@
+import "oaidl.idl";
+import "ocidl.idl";
+import "unknwn.idl";
+
+[
+	object,
+		uuid(CDBF3734-F847-4F1B-B953-A605434DC1E7),
+		oleautomation,
+		helpstring("test")
+] interface ITest : IUnknown
+{
+
+	HRESULT Show();
+
+	HRESULT Hide();
+	HRESULT vwin();
+
+
+};
