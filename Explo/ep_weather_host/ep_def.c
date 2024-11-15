@@ -54,6 +54,36 @@ HRESULT HandlerQueryInterface(IUnknown* This, IID* riid, void** ppvObject)
 	return S_OK;
 }
 
+HRESULT STDMETHODCALLTYPE NavigationCompletedHandlerInvoke(ICoreWebView2NavigationCompletedEventHandler* This, ICoreWebView2* sender, ICoreWebView2NavigationCompletedEventArgs* args) {
+	BOOL isSuccess;
+	args->lpVtbl->get_IsSuccess(args, &isSuccess);
+	static BOOL bErrorDisplayed = FALSE;
+	if (!isSuccess && !bErrorDisplayed) {
+		webviewWindow->lpVtbl->NavigateToString(webviewWindow, error_html);
+		bErrorDisplayed = TRUE;  // 避免无限循环
+	}
+	return S_OK;
+}
+
+
+// Define the virtual table for NavigationCompletedHandler
+static const ICoreWebView2NavigationCompletedEventHandlerVtbl NavigationCompletedHandler_Vtbl = {
+	HandlerQueryInterface,
+	HandlerAddRef,
+	HandlerRelease,
+	NavigationCompletedHandlerInvoke
+};
+
+NavigationCompletedHandler* CreateNavigationCompletedHandler() {
+	NavigationCompletedHandler* handler = (NavigationCompletedHandler*)malloc(sizeof(NavigationCompletedHandler));
+	handler->lpVtbl = &NavigationCompletedHandler_Vtbl;
+	handler->refCount = 1;
+	return handler;
+}
+
+
+
+
 HRESULT HandlerInvoke(IUnknown* This, HRESULT errorCode, void* arg)
 {
 	if (!bEnvCreated)
@@ -80,6 +110,10 @@ HRESULT HandlerInvoke(IUnknown* This, HRESULT errorCode, void* arg)
 			webviewController = controller;
 			webviewController->lpVtbl->get_CoreWebView2(webviewController, &webviewWindow);
 			webviewController->lpVtbl->AddRef(webviewController);
+			// 在此处添加 NavigationCompleted 事件处理程序
+			
+	
+		
 		}
 
 		ICoreWebView2Settings* Settings;
@@ -94,11 +128,19 @@ HRESULT HandlerInvoke(IUnknown* This, HRESULT errorCode, void* arg)
 		RECT bounds;
 		GetClientRect(hWnd, &bounds);
 		webviewController->lpVtbl->put_Bounds(webviewController, bounds);
-
+	
 		_epw_Weather_NavigateToProvider(This);
+
+
+
+		// 在此处添加 NavigationCompleted 事件处理程序
+
+		EventRegistrationToken tkOnNavigationCompleted;
+		NavigationCompletedHandler* navCompletedHandler = CreateNavigationCompletedHandler();
+		webviewWindow->lpVtbl->add_NavigationCompleted(webviewWindow, (ICoreWebView2NavigationCompletedEventHandler*)navCompletedHandler, &tkOnNavigationCompleted);
+
+		//ExecuteScriptExample(webviewWindow);
 	}
-	//刷新一下 windows
-	SetTimer(hWnd, EP_WEATHER_TIMER_REQUEST_REPAINT, EP_WEATHER_TIMER_REQUEST_REPAINT_DELAY, NULL);
 	return S_OK;
 }
 
@@ -106,13 +148,14 @@ HRESULT STDMETHODCALLTYPE _epw_Weather_NavigateToProvider(EPWeather* _this)
 {
 	// _ep_Weather_ReboundBrowser(_this, FALSE);
 	HRESULT hr = S_OK;
-
 	{
 		if (webviewWindow)
 		{
 			// webviewWindow->lpVtbl->Navigate(webviewWindow, wszScriptData);}
 			// 使用 NavigateToString 加载 HTML 内容
 			hr = webviewWindow->lpVtbl->NavigateToString(webviewWindow, hstr1);
+			//hr = webviewWindow->lpVtbl->Navigate(webviewWindow, L"https://www.google.com/search?q=weather");
+			
 		}
 		else
 		{
@@ -120,60 +163,15 @@ HRESULT STDMETHODCALLTYPE _epw_Weather_NavigateToProvider(EPWeather* _this)
 		}
 		if (FAILED(hr))
 		{
-			InterlockedExchange64(&_this->bBrowserBusy, FALSE);
 		}
-
-
 	}
 	return hr;
 }
 
 
-static void epw_Weather_SetTextScaleFactorFromRegistry(EPWeather* _this, HKEY hKey, BOOL bRefresh)
-{
-	DWORD dwTextScaleFactor = 100, dwSize = sizeof(DWORD);
-	if (_this->SHRegGetValueFromHKCUHKLMFunc && _this->SHRegGetValueFromHKCUHKLMFunc(L"SOFTWARE\\Microsoft\\Accessibility", L"TextScaleFactor", SRRF_RT_REG_DWORD, NULL, &dwTextScaleFactor, (LPDWORD)(&dwSize)) != ERROR_SUCCESS)
-	{
-		dwTextScaleFactor = 100;
-	}
-	if (InterlockedExchange64(&_this->dwTextScaleFactor, dwTextScaleFactor) == dwTextScaleFactor)
-	{
-		bRefresh = FALSE;
-	}
-	if (hKey == HKEY_CURRENT_USER)
-	{
-		if (RegCreateKeyExW(HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Accessibility", 0, NULL, REG_OPTION_NON_VOLATILE, KEY_READ | KEY_WOW64_64KEY | KEY_WRITE, NULL, &_this->hKCUAccessibility, NULL) == ERROR_SUCCESS)
-		{
-			RegNotifyChangeKeyValue(_this->hKCUAccessibility, FALSE, REG_NOTIFY_CHANGE_LAST_SET, _this->hSignalOnAccessibilitySettingsChangedFromHKCU, TRUE);
-		}
-	}
-	else if (hKey == HKEY_LOCAL_MACHINE)
-	{
-		if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Accessibility", REG_OPTION_NON_VOLATILE, KEY_READ | KEY_WOW64_64KEY | KEY_WRITE, &_this->hKLMAccessibility))
-		{
-			RegNotifyChangeKeyValue(_this->hKLMAccessibility, FALSE, REG_NOTIFY_CHANGE_LAST_SET, _this->hSignalOnAccessibilitySettingsChangedFromHKLM, TRUE);
-		}
-	}
-	if (bRefresh)
-	{
-		_ep_Weather_StartResize(_this);
-	}
-}
-
-HRESULT STDMETHODCALLTYPE _ep_Weather_StartResize(EPWeather* _this)
-{
-	_this->cntResizeWindow = 0;
-	SetTimer(_this->hWnd, EP_WEATHER_TIMER_RESIZE_WINDOW, EP_WEATHER_TIMER_RESIZE_WINDOW_DELAY, NULL);
-	return S_OK;
-}
 
 
-static DWORD epw_Weather_ReleaseBecauseClientDiedThread(EPWeather* _this)
-{
-	Sleep(5000);
-	while (_this->lpVtbl->Release(_this));
-	return 0;
-}
+
 
 ULONG STDMETHODCALLTYPE def_addRef(EPWeather* _this)
 {
@@ -189,6 +187,20 @@ ULONG STDMETHODCALLTYPE def_release(EPWeather* _this)
 
 	if (value == 0)
 	{
+		if (_this->hMainThread)
+		{
+			
+			CloseHandle(_this->hMainThread);
+			
+		}
+		if (_this->hInitializeEvent)
+		{
+			CloseHandle(_this->hInitializeEvent);
+		}
+
+		
+
+
 		free(_this);
 		LONG dwOutstandingObjects = InterlockedDecrement(&epw_OutstandingObjects);
 		LONG dwOutstandingLocks = InterlockedAdd(&epw_LockCount, 0);
@@ -260,58 +272,32 @@ LRESULT CALLBACK WindowProc(_In_ HWND hWnd, _In_ UINT uMsg, _In_ WPARAM wParam, 
 		printf("this is null\n");
 		return DefWindowProcW(hWnd, uMsg, wParam, lParam);
 	}
-	if (uMsg == WM_TIMER && wParam == EP_WEATHER_TIMER_REQUEST_REPAINT)
-	{
-		HWND hNotifyWnd = InterlockedAdd64(&_this->hNotifyWnd, 0);
-		printf("[Timer Repaint] Request posted to window %x.\n", hNotifyWnd);
-		if (hNotifyWnd)
-		{
-			InvalidateRect(hNotifyWnd, NULL, TRUE);
-			//Sleep(100);
-			//InvalidateRect(hNotifyWnd, NULL, TRUE);
-		}
-		KillTimer(_this->hWnd, EP_WEATHER_TIMER_REQUEST_REPAINT);
-		return 0;
-	}
-	
-	else if (uMsg == WM_TIMER && wParam == EP_WEATHER_TIMER_REQUEST_REFRESH)
-	{
-		KillTimer(_this->hWnd, EP_WEATHER_TIMER_REQUEST_REFRESH);
-		return SendMessageW(_this->hWnd, EP_WEATHER_WM_FETCH_DATA, 0, 0);
-	}
-	else if (uMsg == WM_CLOSE || (uMsg == WM_KEYUP && wParam == VK_ESCAPE) || (uMsg == WM_ACTIVATEAPP && wParam == FALSE && GetAncestor(GetForegroundWindow(), GA_ROOT) != _this->hWnd))
-	{
-		epw_Weather_Hide(_this);
-		return 0;
-	}
-	
-	else
 
-		if (uMsg == WM_DPICHANGED)
-		{
-			printf("WM_DPICHANGED  \n");
-			RECT* rc = lParam;
-			SetWindowPos(hWnd, NULL, rc->left, rc->top, rc->right - rc->left, rc->bottom - rc->top, 0);
-			return 0;
-		}
+	//else if (uMsg == WM_CLOSE || (uMsg == WM_KEYUP && wParam == VK_ESCAPE) || (uMsg == WM_ACTIVATEAPP && wParam == FALSE && GetAncestor(GetForegroundWindow(), GA_ROOT) != _this->hWnd))
+	//{
+	//	epw_Weather_Hide(_this);
+	//	return 0;
+	//}
+
+	else	if (uMsg == WM_DPICHANGED)
+	{
+		printf("WM_DPICHANGED  \n");
+		RECT* rc = lParam;
+		SetWindowPos(hWnd, NULL, rc->left, rc->top, rc->right - rc->left, rc->bottom - rc->top, 0);
+		return 0;
+	}
 
 
 	return DefWindowProcW(hWnd, uMsg, wParam, lParam);
 }
 
 
-
 DWORD WINAPI bar_Weather_MainThread(EPWeather* _this) {
 
-	HRESULT hr = S_OK;
 	BOOL bShouldReleaseBecauseClientDied = FALSE;
 
 	SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 
-	_this->hrLastError = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
-
-	hr = CoInitialize(NULL);
-	_this->hrLastError = CoCreateInstance(&CLSID_TaskbarList, NULL, CLSCTX_INPROC, &IID_ITaskbarList, (LPVOID*)&_this->pTaskList);
 
 
 	WNDCLASSW wc = {};
@@ -319,7 +305,7 @@ DWORD WINAPI bar_Weather_MainThread(EPWeather* _this) {
 	wc.lpfnWndProc = WindowProc;
 	wc.hInstance = epw_hModule;
 	wc.lpszClassName = _T(EPW_WEATHER_CLASSNAME);
-	// wc.hbrBackground = (HBRUSH)GetStockObject(GRAY_BRUSH);// IsWindows11 ? (HBRUSH)GetStockObject(GRAY_BRUSH) : NULL;
+
 	wc.hbrBackground = IsWindows11 ? (HBRUSH)GetStockObject(BLACK_BRUSH) : NULL;
 	wc.hCursor = LoadCursorW(NULL, IDC_ARROW);
 	RegisterClassW(&wc);
@@ -379,12 +365,9 @@ DWORD WINAPI bar_Weather_MainThread(EPWeather* _this) {
 			DispatchMessage(&msg);
 		}
 	}
-
-
-
-
 }
-HRESULT STDMETHODCALLTYPE def_win(EPWeather* _this)
+
+HRESULT STDMETHODCALLTYPE def_main(EPWeather* _this)
 {
 	_this->hInitializeEvent = CreateEventW(NULL, FALSE, FALSE, NULL);
 
