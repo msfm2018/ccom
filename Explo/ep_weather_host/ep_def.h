@@ -4,26 +4,25 @@
 #include "ep_weather_host_h.h"
 
 
-#include <ShlObj.h>
-
 #include <windowsx.h>
-#include <ShlObj.h>
-#include <Shobjidl.h>
+
 #include <dwmapi.h>
 #pragma comment(lib, "Dwmapi.lib")
 #include <netlistmgr.h>
 #include "WebView2.h"
 
 #include <ShellScalingApi.h>
-#include <shlwapi.h>
+
 #include <winnt.h>
 #include <initguid.h>
 #include <Windows.h>
 #include <stdio.h>
 #include <conio.h>
 
+
+
+#include <shlwapi.h>
 #pragma comment(lib, "Shlwapi.lib")
-#include <Shlobj_core.h>
 
 
 ICoreWebView2* webviewWindow;
