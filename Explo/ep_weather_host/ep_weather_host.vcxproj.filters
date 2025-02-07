@@ -38,9 +38,6 @@
     <ClInclude Include="osutility.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="bar_html.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="ep_weather_host.idl">

@@ -6,10 +6,9 @@
 
 #include "ep_def.h"
 #include "osutility.h"
-#include "bar_html.h"
 
 
-#define EPW_WEATHER_CLASSNAME "Sample Window Class"
+#define EPW_WEATHER_CLASSNAME "weather_class"
 
 extern  HMODULE epw_hModule;
 
@@ -59,7 +58,7 @@ HRESULT STDMETHODCALLTYPE NavigationCompletedHandlerInvoke(ICoreWebView2Navigati
 	args->lpVtbl->get_IsSuccess(args, &isSuccess);
 	static BOOL bErrorDisplayed = FALSE;
 	if (!isSuccess && !bErrorDisplayed) {
-		webviewWindow->lpVtbl->NavigateToString(webviewWindow, error_html);
+		//webviewWindow->lpVtbl->NavigateToString(webviewWindow, error_html);
 		bErrorDisplayed = TRUE;  // 避免无限循环
 	}
 	return S_OK;
@@ -107,16 +106,25 @@ HRESULT HandlerInvoke(IUnknown* This, HRESULT errorCode, void* arg)
 		ICoreWebView2Controller* controller = arg;
 
 		if (controller != NULL) {
+			RECT bounds;
+			GetClientRect(hWnd, &bounds);
+
+
 			webviewController = controller;
+			webviewController->lpVtbl->put_Bounds(webviewController, bounds);
 			webviewController->lpVtbl->get_CoreWebView2(webviewController, &webviewWindow);
 			webviewController->lpVtbl->AddRef(webviewController);
 			// 在此处添加 NavigationCompleted 事件处理程序
-			
-	
-		
+
+
+
 		}
 
 		ICoreWebView2Settings* Settings;
+		RECT bounds;
+		GetClientRect(hWnd, &bounds);
+		webviewController->lpVtbl->put_Bounds(webviewController, bounds);
+
 		webviewWindow->lpVtbl->get_Settings(webviewWindow, &Settings);
 		Settings->lpVtbl->put_IsScriptEnabled(Settings, TRUE);
 		Settings->lpVtbl->put_AreDefaultScriptDialogsEnabled(Settings, TRUE);
@@ -125,10 +133,8 @@ HRESULT HandlerInvoke(IUnknown* This, HRESULT errorCode, void* arg)
 		Settings->lpVtbl->put_AreDefaultContextMenusEnabled(Settings, TRUE);
 		Settings->lpVtbl->put_IsStatusBarEnabled(Settings, TRUE);
 
-		RECT bounds;
-		GetClientRect(hWnd, &bounds);
-		webviewController->lpVtbl->put_Bounds(webviewController, bounds);
-	
+
+
 		_epw_Weather_NavigateToProvider(This);
 
 
@@ -151,11 +157,9 @@ HRESULT STDMETHODCALLTYPE _epw_Weather_NavigateToProvider(EPWeather* _this)
 	{
 		if (webviewWindow)
 		{
-			// webviewWindow->lpVtbl->Navigate(webviewWindow, wszScriptData);}
-			// 使用 NavigateToString 加载 HTML 内容
-			hr = webviewWindow->lpVtbl->NavigateToString(webviewWindow, hstr1);
-			//hr = webviewWindow->lpVtbl->Navigate(webviewWindow, L"https://www.google.com/search?q=weather");
-			
+
+			hr = webviewWindow->lpVtbl->Navigate(webviewWindow, L"http://127.0.0.1:8019");
+
 		}
 		else
 		{
@@ -189,16 +193,16 @@ ULONG STDMETHODCALLTYPE def_release(EPWeather* _this)
 	{
 		if (_this->hMainThread)
 		{
-			
+
 			CloseHandle(_this->hMainThread);
-			
+
 		}
 		if (_this->hInitializeEvent)
 		{
 			CloseHandle(_this->hInitializeEvent);
 		}
 
-		
+
 
 
 		free(_this);
@@ -226,30 +230,9 @@ HRESULT STDMETHODCALLTYPE def_qry(EPWeather* _this, REFIID riid, void** ppv)
 	return(NOERROR);
 }
 
-HRESULT STDMETHODCALLTYPE def_show(EPWeather* _this)
-{
-	MessageBox(0, L"aaaa", L"show", 0);
 
-	return S_OK;
-}
 
-HRESULT STDMETHODCALLTYPE def_hide(EPWeather* _this)
-{
-	MessageBox(0, L"aaaa", L"hide", 0);
-	return S_OK;
-}
 
-HRESULT STDMETHODCALLTYPE epw_Weather_Hide(EPWeather* _this)
-{
-	SetLastError(0);
-	LONG_PTR dwExStyle = GetWindowLongPtrW(_this->hWnd, GWL_EXSTYLE);
-	if (!GetLastError())
-	{
-		SetWindowLongPtrW(_this->hWnd, GWL_EXSTYLE, ~WS_EX_TOOLWINDOW & dwExStyle);
-	}
-	ShowWindow(_this->hWnd, SW_HIDE);
-	return S_OK;
-}
 
 
 LRESULT CALLBACK WindowProc(_In_ HWND hWnd, _In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam)
@@ -278,12 +261,28 @@ LRESULT CALLBACK WindowProc(_In_ HWND hWnd, _In_ UINT uMsg, _In_ WPARAM wParam, 
 	//	epw_Weather_Hide(_this);
 	//	return 0;
 	//}
-
+	else if (uMsg == WM_SHOWWINDOW && webviewController)
+	{
+		RECT bounds;
+		GetClientRect(hWnd, &bounds);
+		webviewController->lpVtbl->put_Bounds(webviewController, bounds);
+	}
 	else	if (uMsg == WM_DPICHANGED)
 	{
 		printf("WM_DPICHANGED  \n");
 		RECT* rc = lParam;
 		SetWindowPos(hWnd, NULL, rc->left, rc->top, rc->right - rc->left, rc->bottom - rc->top, 0);
+
+		if (webviewController) {
+			webviewController->lpVtbl->put_Bounds(webviewController, *rc);
+		}
+		return 0;
+	}
+	else if (uMsg == WM_SIZE && webviewController)
+	{
+		RECT bounds;
+		GetClientRect(hWnd, &bounds);
+		webviewController->lpVtbl->put_Bounds(webviewController, bounds);
 		return 0;
 	}
 
@@ -306,7 +305,7 @@ DWORD WINAPI bar_Weather_MainThread(EPWeather* _this) {
 	wc.hInstance = epw_hModule;
 	wc.lpszClassName = _T(EPW_WEATHER_CLASSNAME);
 
-	wc.hbrBackground = IsWindows11 ? (HBRUSH)GetStockObject(BLACK_BRUSH) : NULL;
+	//wc.hbrBackground = IsWindows11 ? (HBRUSH)GetStockObject(BLACK_BRUSH) : NULL;
 	wc.hCursor = LoadCursorW(NULL, IDC_ARROW);
 	RegisterClassW(&wc);
 
@@ -324,7 +323,9 @@ DWORD WINAPI bar_Weather_MainThread(EPWeather* _this) {
 	int workAreaWidth = workArea.right - workArea.left - rc.right + rc.left + 20;
 	int workAreaHeight = workArea.bottom - workArea.top - rc.bottom + rc.top + 20;
 
-	hWnd = CreateWindowExW(dwExStyle, _T(EPW_WEATHER_CLASSNAME), L"", WS_OVERLAPPED | dwStyle, workAreaWidth, workAreaHeight, rc.right - rc.left - 20, rc.bottom - rc.top - 20, NULL, NULL, epw_hModule, _this); // 1030, 630
+	//hWnd = CreateWindowExW(dwExStyle, _T(EPW_WEATHER_CLASSNAME), L"", WS_OVERLAPPED | dwStyle, workAreaWidth, workAreaHeight, rc.right - rc.left - 20, rc.bottom - rc.top - 20, NULL, NULL, epw_hModule, _this); // 1030, 630
+	hWnd = CreateWindowExW(dwExStyle, _T(EPW_WEATHER_CLASSNAME), L"weather", WS_OVERLAPPED | dwStyle, workAreaWidth, workAreaHeight,
+		rc.right - rc.left - 20, rc.bottom - rc.top - 20, NULL, NULL, epw_hModule, _this); // 1030, 630
 
 	_this->hWnd = hWnd;
 	hWnd1 = hWnd;
@@ -348,7 +349,7 @@ DWORD WINAPI bar_Weather_MainThread(EPWeather* _this) {
 	UpdateWindow(hWnd);
 
 	CreateCoreWebView2EnvironmentWithOptions(NULL, NULL, NULL, webEnvHandler);
-
+	SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
 	MSG msg = { };
 
 
@@ -366,6 +367,18 @@ DWORD WINAPI bar_Weather_MainThread(EPWeather* _this) {
 		}
 	}
 }
+HRESULT STDMETHODCALLTYPE def_show(EPWeather* _this)
+{
+	SetLastError(0);
+	LONG_PTR dwExStyle = GetWindowLongPtrW(_this->hWnd, GWL_EXSTYLE);
+	if (!GetLastError())
+	{
+		SetWindowLongPtrW(_this->hWnd, GWL_EXSTYLE, ~WS_EX_TOOLWINDOW & dwExStyle);
+	}
+	ShowWindow(_this->hWnd, SW_SHOW);
+	SetWindowPos(_this->hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+	return S_OK;
+}
 
 HRESULT STDMETHODCALLTYPE def_main(EPWeather* _this)
 {
@@ -373,11 +386,34 @@ HRESULT STDMETHODCALLTYPE def_main(EPWeather* _this)
 
 	_this->hMainThread = CreateThread(NULL, 0, bar_Weather_MainThread, _this, 0, NULL);
 
-	WaitForSingleObject(_this->hInitializeEvent, INFINITE);
+	//WaitForSingleObject(_this->hInitializeEvent, INFINITE);
 
 
 	return S_OK;
 }
 
+HRESULT STDMETHODCALLTYPE def_hide(EPWeather* _this)
+{
+	SetLastError(0);
+	LONG_PTR dwExStyle = GetWindowLongPtrW(_this->hWnd, GWL_EXSTYLE);
+	if (!GetLastError())
+	{
+		SetWindowLongPtrW(_this->hWnd, GWL_EXSTYLE, ~WS_EX_TOOLWINDOW & dwExStyle);
+	}
+	ShowWindow(_this->hWnd, SW_HIDE);
+	return S_OK;
 
+}
+
+HRESULT STDMETHODCALLTYPE epw_Weather_Hide(EPWeather* _this)
+{
+	SetLastError(0);
+	LONG_PTR dwExStyle = GetWindowLongPtrW(_this->hWnd, GWL_EXSTYLE);
+	if (!GetLastError())
+	{
+		SetWindowLongPtrW(_this->hWnd, GWL_EXSTYLE, ~WS_EX_TOOLWINDOW & dwExStyle);
+	}
+	ShowWindow(_this->hWnd, SW_HIDE);
+	return S_OK;
+}
 

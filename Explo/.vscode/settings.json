@@ -1,6 +1,0 @@
-{
-    "files.associations": {
-        "ep_weather_host.h": "c",
-        "ep_weather_provider_google_html.h": "c"
-    }
-}

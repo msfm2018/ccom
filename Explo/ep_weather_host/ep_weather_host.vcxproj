@@ -300,7 +300,6 @@
     <ClCompile Include="ep_def.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="bar_html.h" />
     <ClInclude Include="ep_main.h" />
     <ClInclude Include="ep_weather_factory.h" />
     <ClInclude Include="ep_def.h" />
