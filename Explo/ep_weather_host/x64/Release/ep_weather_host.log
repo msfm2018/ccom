@@ -1,0 +1,149 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8004: Output 目录未以斜杠结尾。  此生成实例将添加斜杠，因为必须有这个斜杠才能正确计算 Output 目录。
+  64 bit Processing .\ep_weather_host.idl
+  ep_weather_host.idl
+  64 bit Processing C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\oaidl.idl
+  oaidl.idl
+  64 bit Processing C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\objidl.idl
+  objidl.idl
+  64 bit Processing C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\unknwn.idl
+  unknwn.idl
+  64 bit Processing C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\wtypes.idl
+  wtypes.idl
+  64 bit Processing C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\wtypesbase.idl
+  wtypesbase.idl
+  64 bit Processing C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\basetsd.h
+  basetsd.h
+  64 bit Processing C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\guiddef.h
+  guiddef.h
+  64 bit Processing C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\ocidl.idl
+  ocidl.idl
+  64 bit Processing C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\oleidl.idl
+  oleidl.idl
+  64 bit Processing C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\servprov.idl
+  servprov.idl
+  64 bit Processing C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\urlmon.idl
+  urlmon.idl
+  64 bit Processing C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\msxml.idl
+  msxml.idl
+  64 bit Processing C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\oaidl.acf
+  oaidl.acf
+  64 bit Processing C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\ocidl.acf
+  ocidl.acf
+  dllmain.c
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_main.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“dllmain.c”)
+  
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_weather_factory.h(12,2): warning C4113: “HRESULT (__cdecl *)(IClassFactory *)”和“HRESULT (__cdecl *)(IClassFactory *,const IID *const ,void **)”的参数列表不同
+  (编译源文件“dllmain.c”)
+  
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_weather_factory.h(15,2): warning C4113: “HRESULT (__cdecl *)(IClassFactory *)”和“HRESULT (__cdecl *)(IClassFactory *,IUnknown *,const IID *const ,void **)”的参数列表不同
+  (编译源文件“dllmain.c”)
+  
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_weather_factory.h(21,3): warning C4090: “初始化”: 不同的“const”限定符
+  (编译源文件“dllmain.c”)
+  
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\dllmain.c(71,5): warning C4133: “函数”: 从“unsigned short [13]”到“const BYTE *”的类型不兼容
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\dllmain.c(79,5): warning C4133: “函数”: 从“unsigned short [39]”到“const BYTE *”的类型不兼容
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\dllmain.c(106,5): warning C4133: “函数”: 从“wchar_t [260]”到“const BYTE *”的类型不兼容
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\dllmain.c(107,31): warning C4267: “函数”: 从“size_t”转换到“DWORD”，可能丢失数据
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\dllmain.c(114,5): warning C4133: “函数”: 从“unsigned short [10]”到“const BYTE *”的类型不兼容
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\dllmain.c(141,5): warning C4133: “函数”: 从“unsigned short [13]”到“const BYTE *”的类型不兼容
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\dllmain.c(149,5): warning C4133: “函数”: 从“unsigned short [1]”到“const BYTE *”的类型不兼容
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\dllmain.c(176,5): warning C4133: “函数”: 从“unsigned short [13]”到“const BYTE *”的类型不兼容
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\dllmain.c(184,5): warning C4133: “函数”: 从“unsigned short [1]”到“const BYTE *”的类型不兼容
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\dllmain.c(37,10): warning C4101: “wszInstallPath”: 未引用的局部变量
+  ep_weather_factory.c
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_main.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“ep_weather_factory.c”)
+  
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_weather_factory.h(12,2): warning C4113: “HRESULT (__cdecl *)(IClassFactory *)”和“HRESULT (__cdecl *)(IClassFactory *,const IID *const ,void **)”的参数列表不同
+  (编译源文件“ep_weather_factory.c”)
+  
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_weather_factory.h(15,2): warning C4113: “HRESULT (__cdecl *)(IClassFactory *)”和“HRESULT (__cdecl *)(IClassFactory *,IUnknown *,const IID *const ,void **)”的参数列表不同
+  (编译源文件“ep_weather_factory.c”)
+  
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_weather_factory.h(21,3): warning C4090: “初始化”: 不同的“const”限定符
+  (编译源文件“ep_weather_factory.c”)
+  
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.h(63,20): warning C4113: “HRESULT (__cdecl *)(EPWeather *,const IID *const ,void **)”和“HRESULT (__cdecl *)(ITest *,const IID *const ,void **)”的参数列表不同
+  (编译源文件“ep_weather_factory.c”)
+  
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.h(64,12): warning C4113: “ULONG (__cdecl *)(EPWeather *)”和“ULONG (__cdecl *)(ITest *)”的参数列表不同
+  (编译源文件“ep_weather_factory.c”)
+  
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.h(65,13): warning C4113: “ULONG (__cdecl *)(EPWeather *)”和“ULONG (__cdecl *)(ITest *)”的参数列表不同
+  (编译源文件“ep_weather_factory.c”)
+  
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.h(67,10): warning C4113: “HRESULT (__cdecl *)(EPWeather *)”和“HRESULT (__cdecl *)(ITest *)”的参数列表不同
+  (编译源文件“ep_weather_factory.c”)
+  
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.h(68,10): warning C4113: “HRESULT (__cdecl *)(EPWeather *)”和“HRESULT (__cdecl *)(ITest *)”的参数列表不同
+  (编译源文件“ep_weather_factory.c”)
+  
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.h(69,10): warning C4113: “HRESULT (__cdecl *)(EPWeather *)”和“HRESULT (__cdecl *)(ITest *)”的参数列表不同
+  (编译源文件“ep_weather_factory.c”)
+  
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_weather_factory.c(8,27): warning C4029: 声明的形参表不同于定义
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_weather_factory.c(34,27): warning C4029: 声明的形参表不同于定义
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_weather_factory.c(55,21): warning C4090: “=”: 不同的“const”限定符
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_weather_factory.c(62,41): warning C4133: “函数”: 从“EPWeather *”到“ITest *”的类型不兼容
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_weather_factory.c(63,29): warning C4133: “函数”: 从“EPWeather *”到“ITest *”的类型不兼容
+  ep_def.c
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_main.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“ep_def.c”)
+  
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.h(63,20): warning C4113: “HRESULT (__cdecl *)(EPWeather *,const IID *const ,void **)”和“HRESULT (__cdecl *)(ITest *,const IID *const ,void **)”的参数列表不同
+  (编译源文件“ep_def.c”)
+  
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.h(64,12): warning C4113: “ULONG (__cdecl *)(EPWeather *)”和“ULONG (__cdecl *)(ITest *)”的参数列表不同
+  (编译源文件“ep_def.c”)
+  
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.h(65,13): warning C4113: “ULONG (__cdecl *)(EPWeather *)”和“ULONG (__cdecl *)(ITest *)”的参数列表不同
+  (编译源文件“ep_def.c”)
+  
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.h(67,10): warning C4113: “HRESULT (__cdecl *)(EPWeather *)”和“HRESULT (__cdecl *)(ITest *)”的参数列表不同
+  (编译源文件“ep_def.c”)
+  
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.h(68,10): warning C4113: “HRESULT (__cdecl *)(EPWeather *)”和“HRESULT (__cdecl *)(ITest *)”的参数列表不同
+  (编译源文件“ep_def.c”)
+  
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.h(69,10): warning C4113: “HRESULT (__cdecl *)(EPWeather *)”和“HRESULT (__cdecl *)(ITest *)”的参数列表不同
+  (编译源文件“ep_def.c”)
+  
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\osutility.h(69,27): warning C4244: “=”: 从“double”转换到“DWORD”，可能丢失数据
+  (编译源文件“ep_def.c”)
+  
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.c(70,2): warning C4113: “HRESULT (__cdecl *)(IUnknown *,IID *,void **)”和“HRESULT (__cdecl *)(ICoreWebView2NavigationCompletedEventHandler *,const IID *const ,void **)”的参数列表不同
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.c(71,2): warning C4113: “ULONG (__cdecl *)(IUnknown *)”和“ULONG (__cdecl *)(ICoreWebView2NavigationCompletedEventHandler *)”的参数列表不同
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.c(72,2): warning C4113: “ULONG (__cdecl *)(IUnknown *)”和“ULONG (__cdecl *)(ICoreWebView2NavigationCompletedEventHandler *)”的参数列表不同
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.c(78,18): warning C4090: “=”: 不同的“const”限定符
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.c(96,39): warning C4113: “ULONG (__cdecl *)(IUnknown *)”和“ULONG (__cdecl *)(ICoreWebView2CreateCoreWebView2ControllerCompletedHandler *)”的参数列表不同
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.c(97,40): warning C4113: “ULONG (__cdecl *)(IUnknown *)”和“ULONG (__cdecl *)(ICoreWebView2CreateCoreWebView2ControllerCompletedHandler *)”的参数列表不同
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.c(98,47): warning C4113: “HRESULT (__cdecl *)(IUnknown *,IID *,void **)”和“HRESULT (__cdecl *)(ICoreWebView2CreateCoreWebView2ControllerCompletedHandler *,const IID *const ,void **)”的参数列表不同
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.c(99,39): warning C4113: “HRESULT (__cdecl *)(IUnknown *,HRESULT,void *)”和“HRESULT (__cdecl *)(ICoreWebView2CreateCoreWebView2ControllerCompletedHandler *,HRESULT,ICoreWebView2Controller *)”的参数列表不同
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.c(143,4): warning C4013: “_epw_Weather_NavigateToProvider”未定义；假设外部返回 int
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.c(158,27): warning C4142: "_epw_Weather_NavigateToProvider": 类型的良性重定义
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.c(187,39): warning C4133: “函数”: 从“unsigned int *”到“volatile LONG64 *”的类型不兼容
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.c(187,16): warning C4244: “初始化”: 从“LONG64”转换到“ULONG”，可能丢失数据
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.c(194,39): warning C4133: “函数”: 从“unsigned int *”到“volatile LONG64 *”的类型不兼容
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.c(194,16): warning C4244: “初始化”: 从“LONG64”转换到“ULONG”，可能丢失数据
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.c(234,24): warning C4133: “函数”: 从“EPWeather *”到“ITest *”的类型不兼容
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.c(249,9): warning C4133: “=”: 从“int *”到“EPWeather *”的类型不兼容
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.c(278,9): warning C4047: “初始化”:“RECT *”与“LPARAM”的间接级别不同
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.c(352,112): warning C4244: “函数”: 从“double”转换到“int”，可能丢失数据
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.c(354,15): warning C4244: “函数”: 从“double”转换到“int”，可能丢失数据
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.c(370,32): warning C4113: “ULONG (__cdecl *)(IUnknown *)”和“ULONG (__cdecl *)(ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler *)”的参数列表不同
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.c(371,33): warning C4113: “ULONG (__cdecl *)(IUnknown *)”和“ULONG (__cdecl *)(ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler *)”的参数列表不同
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.c(372,40): warning C4113: “HRESULT (__cdecl *)(IUnknown *,IID *,void **)”和“HRESULT (__cdecl *)(ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler *,const IID *const ,void **)”的参数列表不同
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.c(373,32): warning C4113: “HRESULT (__cdecl *)(IUnknown *,HRESULT,void *)”和“HRESULT (__cdecl *)(ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler *,HRESULT,ICoreWebView2Environment *)”的参数列表不同
+dllmain.obj : warning LNK4104: 导出符号“DllRegisterServer”应为 PRIVATE
+dllmain.obj : warning LNK4104: 导出符号“DllUnregisterServer”应为 PRIVATE
+dllmain.obj : warning LNK4104: 导出符号“DllCanUnloadNow”应为 PRIVATE
+dllmain.obj : warning LNK4104: 导出符号“DllGetClassObject”应为 PRIVATE
+    正在创建库 ..\..\..\..\l222ock\StartX\bin\weather\com\ep_com_host.lib 和对象 ..\..\..\..\l222ock\StartX\bin\weather\com\ep_com_host.exp
+  正在生成代码
+  Previous IPDB not found, fall back to full compilation.
+C:\Users\Administrator\Desktop\111\StartX-weather\Explo\ep_weather_host\ep_def.c(395): warning C4716: “bar_Weather_MainThread”: 必须返回一个值
+  All 32 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  已完成代码的生成
+  ep_weather_host.vcxproj -> C:\Users\Administrator\Desktop\l222ock\StartX\bin\weather\com\ep_com_host.dll

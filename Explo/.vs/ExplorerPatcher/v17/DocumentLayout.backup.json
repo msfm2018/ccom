@@ -1,0 +1,79 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Administrator\\Desktop\\111\\StartX-weather\\Explo\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{314A50C1-F0A0-4D0C-89E1-AD8F3951043E}|ep_weather_host\\ep_weather_host.vcxproj|C:\\Users\\Administrator\\Desktop\\111\\StartX-weather\\Explo\\ep_weather_host\\ep_def.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{314A50C1-F0A0-4D0C-89E1-AD8F3951043E}|ep_weather_host\\ep_weather_host.vcxproj|solutionrelative:ep_weather_host\\ep_def.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{314A50C1-F0A0-4D0C-89E1-AD8F3951043E}|ep_weather_host\\ep_weather_host.vcxproj|C:\\Users\\Administrator\\Desktop\\111\\StartX-weather\\Explo\\ep_weather_host\\dllmain.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{314A50C1-F0A0-4D0C-89E1-AD8F3951043E}|ep_weather_host\\ep_weather_host.vcxproj|solutionrelative:ep_weather_host\\dllmain.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{314A50C1-F0A0-4D0C-89E1-AD8F3951043E}|ep_weather_host\\ep_weather_host.vcxproj|C:\\Users\\Administrator\\Desktop\\111\\StartX-weather\\Explo\\ep_weather_host\\ep_weather_factory.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{314A50C1-F0A0-4D0C-89E1-AD8F3951043E}|ep_weather_host\\ep_weather_host.vcxproj|solutionrelative:ep_weather_host\\ep_weather_factory.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ep_def.c",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\111\\StartX-weather\\Explo\\ep_weather_host\\ep_def.c",
+              "RelativeDocumentMoniker": "ep_weather_host\\ep_def.c",
+              "ToolTip": "C:\\Users\\Administrator\\Desktop\\111\\StartX-weather\\Explo\\ep_weather_host\\ep_def.c",
+              "RelativeToolTip": "ep_weather_host\\ep_def.c",
+              "ViewState": "AgIAAEcBAAAAAAAAAAAAAFgBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-02-08T10:38:54.296Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ep_weather_factory.c",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\111\\StartX-weather\\Explo\\ep_weather_host\\ep_weather_factory.c",
+              "RelativeDocumentMoniker": "ep_weather_host\\ep_weather_factory.c",
+              "ToolTip": "C:\\Users\\Administrator\\Desktop\\111\\StartX-weather\\Explo\\ep_weather_host\\ep_weather_factory.c",
+              "RelativeToolTip": "ep_weather_host\\ep_weather_factory.c",
+              "ViewState": "AgIAADwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-02-08T10:38:49.841Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "dllmain.c",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\111\\StartX-weather\\Explo\\ep_weather_host\\dllmain.c",
+              "RelativeDocumentMoniker": "ep_weather_host\\dllmain.c",
+              "ToolTip": "C:\\Users\\Administrator\\Desktop\\111\\StartX-weather\\Explo\\ep_weather_host\\dllmain.c",
+              "RelativeToolTip": "ep_weather_host\\dllmain.c",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAB4AAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-02-08T01:51:11.595Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

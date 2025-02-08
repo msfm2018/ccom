@@ -123,28 +123,33 @@ HRESULT HandlerInvoke(IUnknown* This, HRESULT errorCode, void* arg)
 		ICoreWebView2Settings* Settings;
 		RECT bounds;
 		GetClientRect(hWnd, &bounds);
-		webviewController->lpVtbl->put_Bounds(webviewController, bounds);
+		if (webviewController != NULL)
+		{
+			webviewController->lpVtbl->put_Bounds(webviewController, bounds);
+		}
 
-		webviewWindow->lpVtbl->get_Settings(webviewWindow, &Settings);
-		Settings->lpVtbl->put_IsScriptEnabled(Settings, TRUE);
-		Settings->lpVtbl->put_AreDefaultScriptDialogsEnabled(Settings, TRUE);
-		Settings->lpVtbl->put_IsWebMessageEnabled(Settings, TRUE);
-		Settings->lpVtbl->put_AreDevToolsEnabled(Settings, FALSE);
-		Settings->lpVtbl->put_AreDefaultContextMenusEnabled(Settings, TRUE);
-		Settings->lpVtbl->put_IsStatusBarEnabled(Settings, TRUE);
+		if (webviewWindow != NULL)
+		{
+			webviewWindow->lpVtbl->get_Settings(webviewWindow, &Settings);
+			Settings->lpVtbl->put_IsScriptEnabled(Settings, TRUE);
+			Settings->lpVtbl->put_AreDefaultScriptDialogsEnabled(Settings, TRUE);
+			Settings->lpVtbl->put_IsWebMessageEnabled(Settings, TRUE);
+			Settings->lpVtbl->put_AreDevToolsEnabled(Settings, FALSE);
+			Settings->lpVtbl->put_AreDefaultContextMenusEnabled(Settings, TRUE);
+			Settings->lpVtbl->put_IsStatusBarEnabled(Settings, TRUE);
 
 
 
-		_epw_Weather_NavigateToProvider(This);
+			_epw_Weather_NavigateToProvider(This);
 
 
 
-		// 在此处添加 NavigationCompleted 事件处理程序
+			// 在此处添加 NavigationCompleted 事件处理程序
 
-		EventRegistrationToken tkOnNavigationCompleted;
-		NavigationCompletedHandler* navCompletedHandler = CreateNavigationCompletedHandler();
-		webviewWindow->lpVtbl->add_NavigationCompleted(webviewWindow, (ICoreWebView2NavigationCompletedEventHandler*)navCompletedHandler, &tkOnNavigationCompleted);
-
+			EventRegistrationToken tkOnNavigationCompleted;
+			NavigationCompletedHandler* navCompletedHandler = CreateNavigationCompletedHandler();
+			webviewWindow->lpVtbl->add_NavigationCompleted(webviewWindow, (ICoreWebView2NavigationCompletedEventHandler*)navCompletedHandler, &tkOnNavigationCompleted);
+		}
 		//ExecuteScriptExample(webviewWindow);
 	}
 	return S_OK;
@@ -320,12 +325,33 @@ DWORD WINAPI bar_Weather_MainThread(EPWeather* _this) {
 	RECT workArea;
 	SystemParametersInfo(SPI_GETWORKAREA, 0, &workArea, 0);
 
-	int workAreaWidth = workArea.right - workArea.left - rc.right + rc.left + 20;
-	int workAreaHeight = workArea.bottom - workArea.top - rc.bottom + rc.top + 20;
+	//int workAreaWidth = workArea.right - workArea.left - rc.right + rc.left + 20;
+	////int workAreaHeight = workArea.bottom - workArea.top - rc.bottom + rc.top + 20;
+	//int workAreaHeight = workArea.top;
+	//int screenWidth = GetSystemMetrics(SM_CXSCREEN);  // 获取屏幕宽度
+	////hWnd = CreateWindowExW(dwExStyle, _T(EPW_WEATHER_CLASSNAME), L"", WS_OVERLAPPED | dwStyle, workAreaWidth, workAreaHeight, rc.right - rc.left - 20, rc.bottom - rc.top - 20, NULL, NULL, epw_hModule, _this); // 1030, 630
+	////hWnd = CreateWindowExW(dwExStyle, _T(EPW_WEATHER_CLASSNAME), L"weather", WS_OVERLAPPED | dwStyle, workAreaWidth, workAreaHeight,
+	//hWnd = CreateWindowExW(dwExStyle, _T(EPW_WEATHER_CLASSNAME), L"weather", WS_OVERLAPPED | dwStyle, screenWidth * 0.7, workAreaHeight,
+	//	//rc.right - rc.left - 20, rc.bottom - rc.top - 20, NULL, NULL, epw_hModule, _this); // 1030, 630
+	//	screenWidth * 0.3, workArea.bottom, NULL, NULL, epw_hModule, _this); // 1030, 630
 
+
+
+
+
+
+
+
+
+	int workAreaWidth = workArea.right - workArea.left - rc.right + rc.left + 20;
+	//int workAreaHeight = workArea.bottom - workArea.top - rc.bottom + rc.top + 20;
+	int workAreaHeight = workArea.top;
+	int screenWidth = GetSystemMetrics(SM_CXSCREEN);  // 获取屏幕宽度
 	//hWnd = CreateWindowExW(dwExStyle, _T(EPW_WEATHER_CLASSNAME), L"", WS_OVERLAPPED | dwStyle, workAreaWidth, workAreaHeight, rc.right - rc.left - 20, rc.bottom - rc.top - 20, NULL, NULL, epw_hModule, _this); // 1030, 630
-	hWnd = CreateWindowExW(dwExStyle, _T(EPW_WEATHER_CLASSNAME), L"weather", WS_OVERLAPPED | dwStyle, workAreaWidth, workAreaHeight,
-		rc.right - rc.left - 20, rc.bottom - rc.top - 20, NULL, NULL, epw_hModule, _this); // 1030, 630
+	//hWnd = CreateWindowExW(dwExStyle, _T(EPW_WEATHER_CLASSNAME), L"weather", WS_OVERLAPPED | dwStyle, workAreaWidth, workAreaHeight,
+	hWnd = CreateWindowExW(dwExStyle, _T(EPW_WEATHER_CLASSNAME), L"weather", WS_OVERLAPPED | dwStyle, screenWidth * 0.3, workAreaHeight,
+		//rc.right - rc.left - 20, rc.bottom - rc.top - 20, NULL, NULL, epw_hModule, _this); // 1030, 630
+		screenWidth * 0.7, workArea.bottom, NULL, NULL, epw_hModule, _this); // 1030, 630
 
 	_this->hWnd = hWnd;
 	hWnd1 = hWnd;

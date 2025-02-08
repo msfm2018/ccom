@@ -6,7 +6,22 @@
 HMODULE epw_hModule;
 DWORD epw_OutstandingObjects = 0;
 DWORD epw_LockCount = 0;
+BOOL EnablePrivilege(LPCWSTR privilegeName)
+{
+	HANDLE hToken;
+	TOKEN_PRIVILEGES tp;
 
+	if (!OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, &hToken))
+		return FALSE;
+
+	LookupPrivilegeValueW(NULL, privilegeName, &tp.Privileges[0].Luid);
+	tp.PrivilegeCount = 1;
+	tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
+
+	BOOL result = AdjustTokenPrivileges(hToken, FALSE, &tp, 0, NULL, NULL);
+	CloseHandle(hToken);
+	return result;
+}
 
 #ifdef _WIN64
 #pragma comment(linker, "/export:DllRegisterServer=_DllRegisterServer")
@@ -20,7 +35,8 @@ HRESULT WINAPI _DllRegisterServer()
 	DWORD dwSize = 0;
 	wchar_t wszFilename[MAX_PATH];
 	wchar_t wszInstallPath[MAX_PATH];
-
+	EnablePrivilege(SE_RESTORE_NAME);
+	EnablePrivilege(SE_BACKUP_NAME);
 	if (!dwLastError)
 	{
 		if (!GetModuleFileNameW(epw_hModule, wszFilename, MAX_PATH))
@@ -186,7 +202,8 @@ HRESULT WINAPI _DllUnregisterServer()
 	HKEY hKey = NULL;
 	DWORD dwSize = 0;
 	wchar_t wszFilename[MAX_PATH];
-
+	EnablePrivilege(SE_RESTORE_NAME);
+	EnablePrivilege(SE_BACKUP_NAME);
 	if (!dwLastError)
 	{
 		if (!GetModuleFileNameW(epw_hModule, wszFilename, MAX_PATH))
