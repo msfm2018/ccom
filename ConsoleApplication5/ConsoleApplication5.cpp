@@ -136,50 +136,64 @@ BOOL IsUserAdmin()
 
 extern "C" __declspec(dllexport) BOOL RegisterCOM()
 {
-	WCHAR wszArgs[MAX_PATH];
-	WCHAR wszOwnPath[MAX_PATH];
 
-	// 获取自身 EXE 的完整路径
-	ZeroMemory(wszOwnPath, ARRAYSIZE(wszOwnPath));
-	GetModuleFileNameW(NULL, wszOwnPath, ARRAYSIZE(wszOwnPath));
-
-	// 提取 DLL 目录
-	WCHAR* lastSlash = wcsrchr(wszOwnPath, L'\\'); // 使用 wcsrchr 处理 WCHAR 字符串
-	if (lastSlash)
-		*lastSlash = L'\0'; // 截取目录路径
-
-	// 生成 DLL 路径
-	swprintf_s(wszArgs, MAX_PATH, L"/s \%s\\weather\\com\\ep_com_host.dll", wszOwnPath);
+	HRESULT hr = S_OK;
+	IUnknown* pImmersiveShell = NULL;
 
 
+	hr = CoCreateInstance(CLSID_EPWeather, NULL, CLSCTX_INPROC_SERVER, IID_IEPWeather, (void**)&pImmersiveShell);
 
-	WCHAR wszApp[MAX_PATH * 2];
-	GetSystemDirectoryW(wszApp, MAX_PATH * 2);
-	wcscat_s(wszApp, MAX_PATH * 2, L"\\regsvr32.exe");
+	if (!SUCCEEDED(hr))
 
-	SHELLEXECUTEINFOW sei;
-	ZeroMemory(&sei, sizeof(SHELLEXECUTEINFOW));
-	sei.cbSize = sizeof(sei);
-	sei.fMask = SEE_MASK_NOCLOSEPROCESS;
-	sei.hwnd = NULL;
-	sei.hInstApp = NULL;
-	sei.lpVerb = L"runas";
-	sei.lpFile = wszApp;
-	sei.lpParameters = wszArgs;
-	sei.hwnd = NULL;
-	sei.nShow = SW_NORMAL;
-	if (ShellExecuteExW(&sei) && sei.hProcess)
 	{
-		WaitForSingleObject(sei.hProcess, INFINITE);
-		DWORD dwExitCode = 0;
-		if (GetExitCodeProcess(sei.hProcess, &dwExitCode) && !dwExitCode)
+		WCHAR wszArgs[MAX_PATH];
+		WCHAR wszOwnPath[MAX_PATH];
+
+		// 获取自身 EXE 的完整路径
+		ZeroMemory(wszOwnPath, ARRAYSIZE(wszOwnPath));
+		GetModuleFileNameW(NULL, wszOwnPath, ARRAYSIZE(wszOwnPath));
+
+		// 提取 DLL 目录
+		WCHAR* lastSlash = wcsrchr(wszOwnPath, L'\\'); // 使用 wcsrchr 处理 WCHAR 字符串
+		if (lastSlash)
+			*lastSlash = L'\0'; // 截取目录路径
+
+		// 生成 DLL 路径
+		swprintf_s(wszArgs, MAX_PATH, L"/s \%s\\weather\\com\\ep_com_host.dll", wszOwnPath);
+
+
+
+		WCHAR wszApp[MAX_PATH * 2];
+		GetSystemDirectoryW(wszApp, MAX_PATH * 2);
+		wcscat_s(wszApp, MAX_PATH * 2, L"\\regsvr32.exe");
+
+		SHELLEXECUTEINFOW sei;
+		ZeroMemory(&sei, sizeof(SHELLEXECUTEINFOW));
+		sei.cbSize = sizeof(sei);
+		sei.fMask = SEE_MASK_NOCLOSEPROCESS;
+		sei.hwnd = NULL;
+		sei.hInstApp = NULL;
+		sei.lpVerb = L"runas";
+		sei.lpFile = wszApp;
+		sei.lpParameters = wszArgs;
+		sei.hwnd = NULL;
+		sei.nShow = SW_NORMAL;
+		if (ShellExecuteExW(&sei) && sei.hProcess)
 		{
+			WaitForSingleObject(sei.hProcess, INFINITE);
+			DWORD dwExitCode = 0;
+			if (GetExitCodeProcess(sei.hProcess, &dwExitCode) && !dwExitCode)
+			{
+			}
+			else
+			{
+			}
+			CloseHandle(sei.hProcess);
 		}
-		else
-		{
-		}
-		CloseHandle(sei.hProcess);
+
+
 	}
+	CoUninitialize();  // 释放 COM 库
 	return TRUE;
 }
 
